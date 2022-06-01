@@ -17,6 +17,7 @@
 
 typedef struct Received
 {
+	uint8_t ID;		   // ID
 	uint8_t Temp;	   // Temp of motor
 	uint16_t ECurru;   // electric current of motor
 	int16_t BSpeed;	   // FeedBack Speed of motor

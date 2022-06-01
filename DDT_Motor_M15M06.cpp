@@ -21,6 +21,7 @@ void MotorHandler::Control_Motor(uint16_t Speed, uint8_t ID, uint8_t Acce, uint8
 	Send_Motor();
 
 	Receive_Motor();
+	Receiver->ID = this->Rx[0];
 	Receiver->BMode = this->Rx[1];
 	Receiver->ECurru = (this->Rx[2] << 8) + this->Rx[3];
 	Receiver->BSpeed = (this->Rx[4] << 8) + this->Rx[5];
@@ -43,6 +44,7 @@ void MotorHandler::Get_Motor(uint8_t ID, Receiver *Receiver)
 	Send_Motor();
 
 	Receive_Motor();
+	Receiver->ID = Rx[0];
 	Receiver->BMode = Rx[1];
 	Receiver->ECurru = (Rx[2] << 8) + Rx[3];
 	Receiver->BSpeed = (Rx[4] << 8) + Rx[5];
@@ -97,6 +99,7 @@ void MotorHandler::Check_Motor(Receiver *Receiver)
 	Send_Motor();
 	Receive_Motor();
 
+	Receiver->ID = Rx[0];
 	Receiver->BMode = Rx[1];
 	Receiver->ECurru = (Rx[2] << 8) + Rx[3];
 	Receiver->BSpeed = (Rx[4] << 8) + Rx[5];
