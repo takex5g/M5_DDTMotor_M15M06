@@ -10,7 +10,7 @@ void setup()
   Serial.begin(115200);
   Serial.println("ID setting");
   //モーターIDを2に変更するサンプル
-  uint8_t ID = 2;
+  uint8_t ID = 0x02;
   for (int i = 0; i < 5; i++)
   {
     motor_handler.Set_MotorID(ID);
