@@ -1,0 +1,23 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MotorHandler	KEYWORD1
+Receiver	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+Control_Motor	KEYWORD2
+Get_Motor	KEYWORD2
+Set_MotorMode	KEYWORD2
+Set_MotorID	KEYWORD2
+Check_Motor	KEYWORD2
+Send_Motor	KEYWORD2
+Receive_Motor	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
