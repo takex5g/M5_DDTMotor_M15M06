@@ -13,9 +13,14 @@ M5Stack,M5SickC等のM5シリーズでの使用を想定していますが、送
 
 結線に関してはデータシート参照
 
+## Installing
+
+1. githubで本リポジトリを.zipでダウンロード
+2. ArduinoIDEから`スケッチ` ->  `ライブラリをインクルード` -> `.zip形式のライブラリをインストール`
+
 ## Usage
 
-`スケッチ例 -> DDT_Motor_M15M06` よりサンプルスケッチがあるのでそちらを参照してください。
+`ファイル` -> `スケッチ例` -> `DDT_Motor_M15M06` よりサンプルスケッチがあるのでそちらを参照してください。
 
 - spin_the_motor.ino
 
@@ -52,6 +57,7 @@ values.
 
 #### Receiverオブジェクトにモーターの状態が格納されます
 
+- `Receiv.ID` ID
 - `Receiv.BMode` モード(mode)
 - `Receiv.ECurru` 電流(Current)
 - `Receiv.BSpeed` 速度(Velocity)
@@ -66,6 +72,7 @@ Get_Motor(uint8_t ID, Receiver *Receiver);
 
 #### Receiverオブジェクトにモーターの状態が格納されます
 
+- `Receiv.ID` ID
 - `Receiv.BMode` モード(mode)
 - `Receiv.ECurru` 電流(Current)
 - `Receiv.BSpeed` 速度(Velocity)
@@ -117,6 +124,13 @@ Note: When checking the ID, please make sure that the bus has only one moto
 
 Sensor Fault
 E.g.：0x02 or 0b00000010 corresponds to Bus over current.
+
+## Trouble Shooting
+
+- コマンドを送っているのにモーターが回らない/値が取得できない
+  - 一度モーターの電源を切り、再度電源投入すると値が取れる場合がある
+  - モーターのケーブル黒線はGNDではないので注意
+  - デフォルトIDは0ではなく0x01, Velocity Mode
 
 ## Author
 
