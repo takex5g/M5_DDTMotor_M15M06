@@ -2,6 +2,7 @@
 
 MotorHandler::MotorHandler(int RX, int TX)
 {
+	// Baud rate：115200 Data bit：8bit Stop bit：1bit Parity check：none
 	Serial2.begin(115200, SERIAL_8N1, RX, TX);
 }
 
