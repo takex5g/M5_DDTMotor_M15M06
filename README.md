@@ -1,19 +1,41 @@
-# M5Stack DDT M06/M15 Library
+# M5Stack DDT Motor M06/M15 Library
 
-中国Direct Drive Tech社製ダイレクトドライブモーター用のArduinoライブラリです。
+中国Direct Drive Tech社製ダイレクトドライブモーターのArduinoライブラリです。
 
 販売ページ(スイッチサイエンス):  <https://www.switch-science.com/catalog/7646/>
 
-M5Stack,M5SickC用を想定していますが、送受信部分のコードを一部可変すれば他のArduinoボードでも動作するかと思います。
+M5Stack,M5SickC等のM5シリーズでの使用を想定していますが、送受信部分のコードを一部可変すれば他のArduinoボードでも動作するかと思います。
 
 ## Hardware
 
-- M5 series
+- M5 Stack series
 - [RS485ユニット](https://www.switch-science.com/catalog/6554/) ([Hat](https://www.switch-science.com/catalog/6472/)でも可)
 
 結線に関してはデータシート参照
 
 ## Usage
+
+`スケッチ例 -> DDT_Motor_M15M06` よりサンプルスケッチがあるのでそちらを参照してください。
+
+- spin_the_motor.ino
+
+   モーターの正転逆転を行いつつ、シリアルモニタに現在速度を出力
+- mode_switching.ino
+
+   モードの変更
+- id_setting.ino
+
+   IDの変更
+
+## Description
+
+### initialize
+
+```c
+auto motor_handler = MotorHandler(33, 32); // RX,TX
+```
+
+RX,TXはM5Stackの種類や使用しているモジュール・Hatによって異なります。
 
 ### Spin the motor
 
@@ -21,20 +43,20 @@ M5Stack,M5SickC用を想定していますが、送受信部分のコードを�
  Control_Motor(uint16_t Speed, uint8_t ID, uint8_t Acce, uint8_t Brake_P, Receiver *Receiver);
  ```
 
-それぞれのモードにおいても、第一引数のSpeedに値を入れます。
+いずれのモードにおいても、第一引数のSpeedに値を入れます。
 
 Acceleration：Valid in velocity loop. unity: RPM/0.1ms. When set to 0, it wouldbethe default value
 
-Brake：Valid in velocity loop when the value is 0XFF. Brake won’t work at other
+Brake：Valid in velocity loop when the value is 0xFF. Brake won’t work at other
 values.
 
-Receiver
+#### Receiverオブジェクトにモーターの状態が格納されます
 
-- Receiv.BMode
-- Receiv.ECurru
-- Receiv.BSpeed
-- Receiv.Position
-- Receiv.ErrCode
+- `Receiv.BMode` モード(mode)
+- `Receiv.ECurru` 電流(Current)
+- `Receiv.BSpeed` 速度(Velocity)
+- `Receiv.Position` 位置(Angle)
+- `Receiv.ErrCode` エラーコード(Fault value)
 
 ### Obtain other feedback
 
@@ -42,16 +64,16 @@ Receiver
 Get_Motor(uint8_t ID, Receiver *Receiver);
 ```
 
-Receiver
+#### Receiverオブジェクトにモーターの状態が格納されます
 
-- Receiv.BMode
-- Receiv.ECurru
-- Receiv.BSpeed
-- Receiv.Temp
-- Receiv.Position
-- Receiv.ErrCode
+- `Receiv.BMode` モード(mode)
+- `Receiv.ECurru` 電流(Current)
+- `Receiv.BSpeed` 速度(Velocity)
+- `Receiv.Temp` 温度(Stator tempe rature)
+- `Receiv.Position` 位置(Angle)
+- `Receiv.ErrCode` エラーコード(Fault value)
 
-Angle in 8 bits：0~256 corresponds to 0~360° Stator
+Angle in 8 bits：0 ~ 256 corresponds to 0 ~ 360° Stator
 
 temperature ：unity : ℃
 
@@ -63,9 +85,9 @@ Set_MotorMode(uint8_t Mode, uint8_t ID);
 
 | Mode | Value |  |
 |:-------------------|----------:|:------------------------------:|
-| **Current Mode**   | 0x01      | -32767~32767 correspond to 0~8A|
+| **Current Mode**   | 0x01      | -32767 ~ 32767 correspond to 0 ~ 8A|
 | **Velocity Mode**  | 0x02      | -330~330 rpm                   |
-| **Angle Mode**     | 0x03      | 0~32767correspond to 0°~360°   |
+| **Angle Mode**     | 0x03      | 0 ~ 32767correspond to 0° ~ 360°   |
 
 Only when the velocity is lower than 10 rpm that switching to angle loopisavailable.
 
@@ -86,6 +108,15 @@ Check_Motor(Receiver *Receiver);
 ```
 
 Note: When checking the ID, please make sure that the bus has only one moto
+
+### Error Code
+
+| Fault value |  BIT7  | BIT6   | BIT5   | BIT4   | BIT3 | BIT2 | BIT1 | BIT0 |
+|:------------|-------:|:------:|:------:|:------:|:----:|:----:|:----:|:----:|
+|Description  |Reserved|Reserved|Reserved|Overheat|Stall|Phase Over current|Bus over current|Sensor Fault|
+
+Sensor Fault
+E.g.：0x02 or 0b00000010 corresponds to Bus over current.
 
 ## Author
 
