@@ -25,7 +25,7 @@ void loop()
   while (true)
   {
     Speed++;
-    delay(10);
+    delay(5);
     motor_handler.Control_Motor(Speed, ID, Acce, Brake_P, &Receiv);
     Serial.println(Receiv.BSpeed);
     if (Speed > int16_t(SPEED_MAX))
@@ -37,7 +37,7 @@ void loop()
   while (true)
   {
     Speed--;
-    delay(10);
+    delay(5);
     motor_handler.Control_Motor(Speed, ID, Acce, Brake_P, &Receiv);
     Serial.println(Receiv.BSpeed);
     if (Speed < SPEED_MIN)
