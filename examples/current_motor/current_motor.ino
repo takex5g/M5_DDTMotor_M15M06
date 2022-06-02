@@ -14,21 +14,27 @@ void setup()
 {
   Serial.begin(115200);
   Serial.println("DDT-Motor RS485");
-
-  motor_handler.Control_Motor(0, ID, Acce, Brake_P, &Receiv);
+  delay(100);
+  motor_handler.Control_Motor(0, ID, Acce, Brake_P, &Receiv); //モータ停止
+  delay(100);
+  uint8_t Mode = 0x01;                   // current loop
+  motor_handler.Set_MotorMode(Mode, ID); //モード変更
+  delay(100);
 }
 
-const int16_t SPEED_MAX = 330;
-const int16_t SPEED_MIN = -330;
+const int16_t SPEED_MAX = 32767 - 100;
+const int16_t SPEED_MIN = -32767 + 100;
 void loop()
 {
   while (true)
   {
-    Speed++;
+    Speed += 50;
     delay(5);
     motor_handler.Control_Motor(Speed, ID, Acce, Brake_P, &Receiv);
     Serial.print(" Mode:");
     Serial.print(Receiv.BMode);
+    Serial.print(" Current:");
+    Serial.print(Receiv.ECurru);
     Serial.print(" Speed:");
     Serial.println(Receiv.BSpeed);
     if (Speed > int16_t(SPEED_MAX))
@@ -39,11 +45,13 @@ void loop()
 
   while (true)
   {
-    Speed--;
+    Speed -= 50;
     delay(5);
     motor_handler.Control_Motor(Speed, ID, Acce, Brake_P, &Receiv);
     Serial.print(" Mode:");
     Serial.print(Receiv.BMode);
+    Serial.print(" Current:");
+    Serial.print(Receiv.ECurru);
     Serial.print(" Speed:");
     Serial.println(Receiv.BSpeed);
     if (Speed < SPEED_MIN)
