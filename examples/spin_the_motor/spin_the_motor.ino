@@ -27,6 +27,9 @@ void loop()
     Speed++;
     delay(5);
     motor_handler.Control_Motor(Speed, ID, Acce, Brake_P, &Receiv);
+    Serial.print(" Mode:");
+    Serial.print(Receiv.BMode);
+    Serial.print(" Speed:");
     Serial.println(Receiv.BSpeed);
     if (Speed > int16_t(SPEED_MAX))
     {
@@ -39,6 +42,9 @@ void loop()
     Speed--;
     delay(5);
     motor_handler.Control_Motor(Speed, ID, Acce, Brake_P, &Receiv);
+    Serial.print(" Mode:");
+    Serial.print(Receiv.BMode);
+    Serial.print(" Speed:");
     Serial.println(Receiv.BSpeed);
     if (Speed < SPEED_MIN)
     {
