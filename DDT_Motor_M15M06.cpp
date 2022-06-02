@@ -44,13 +44,13 @@ void MotorHandler::Get_Motor(uint8_t ID, Receiver *Receiver)
 	Send_Motor();
 
 	Receive_Motor();
-	Receiver->ID = Rx[0];
-	Receiver->BMode = Rx[1];
-	Receiver->ECurru = (Rx[2] << 8) + Rx[3];
-	Receiver->BSpeed = (Rx[4] << 8) + Rx[5];
-	Receiver->Temp = Rx[6];
-	Receiver->Position = Rx[7];
-	Receiver->ErrCode = Rx[8];
+	Receiver->ID = this->Rx[0];
+	Receiver->BMode = this->Rx[1];
+	Receiver->ECurru = (this->Rx[2] << 8) + this->Rx[3];
+	Receiver->BSpeed = (this->Rx[4] << 8) + this->Rx[5];
+	Receiver->Temp = this->Rx[6];
+	Receiver->Position = this->Rx[7];
+	Receiver->ErrCode = this->Rx[8];
 }
 
 void MotorHandler::Set_MotorMode(uint8_t Mode, uint8_t ID)
@@ -99,12 +99,12 @@ void MotorHandler::Check_Motor(Receiver *Receiver)
 	Send_Motor();
 	Receive_Motor();
 
-	Receiver->ID = Rx[0];
-	Receiver->BMode = Rx[1];
-	Receiver->ECurru = (Rx[2] << 8) + Rx[3];
-	Receiver->BSpeed = (Rx[4] << 8) + Rx[5];
-	Receiver->Position = (Rx[6] << 8) + Rx[7];
-	Receiver->ErrCode = Rx[8];
+	Receiver->ID = this->Rx[0];
+	Receiver->BMode = this->Rx[1];
+	Receiver->ECurru = (this->Rx[2] << 8) + this->Rx[3];
+	Receiver->BSpeed = (this->Rx[4] << 8) + this->Rx[5];
+	Receiver->Position = (this->Rx[6] << 8) + this->Rx[7];
+	Receiver->ErrCode = this->Rx[8];
 }
 
 void MotorHandler::Send_Motor()
