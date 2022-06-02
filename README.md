@@ -34,7 +34,7 @@ M5Stack,M5SickC等のM5シリーズでの使用を想定していますが、送
 
 ## Description
 
-### initialize
+### Initialize
 
 ```c
 auto motor_handler = MotorHandler(33, 32); // RX,TX
@@ -114,7 +114,7 @@ ID setting is allowed once every power reset. The ID will be changed after 5 tim
 Check_Motor(Receiver *Receiver);
 ```
 
-Note: When checking the ID, please make sure that the bus has only one moto
+Note: When checking the ID, please make sure that the bus has only one motor
 
 ### Error Code
 
