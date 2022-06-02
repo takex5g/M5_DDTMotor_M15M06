@@ -92,11 +92,12 @@ Set_MotorMode(uint8_t Mode, uint8_t ID);
 
 | Mode | Value |  |
 |:-------------------|----------:|:------------------------------:|
-| **Current Mode**   | 0x01      | -32767 ~ 32767 correspond to 0 ~ 8A|
-| **Velocity Mode**  | 0x02      | -330~330 rpm                   |
-| **Angle Mode**     | 0x03      | 0 ~ 32767correspond to 0° ~ 360°   |
+| **Current Mode**   | 0x01      | -32767 ~ 32767 correspond to 0 ~ 8A，INT16|
+| **Velocity Mode**  | 0x02      | -330~330 rpm，INT16                   |
+| **Angle Mode**     | 0x03      | 0 ~ 32767correspond to 0° ~ 360°，UNT16|
 
 Only when the velocity is lower than 10 rpm that switching to angle loopisavailable.
+モード変更はフラッシュには保存されません。
 
 ### ID setting
 
