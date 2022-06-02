@@ -25,12 +25,7 @@ M5Stack,M5SickC等のM5シリーズでの使用を想定していますが、送
 - spin_the_motor.ino
 
    モーターの正転逆転を行いつつ、シリアルモニタに現在速度を出力
-- mode_switching.ino
 
-   モードの変更
-- id_setting.ino
-
-   IDの変更
 
 ## Description
 
